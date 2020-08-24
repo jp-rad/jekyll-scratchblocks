@@ -20,18 +20,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-require 'digest'
+require 'securerandom'
 
 module Jekyll
   class ScratchblocksBlock < Liquid::Block
     def initialize(tag_name, markup, tokens)
       super
-      @options = (markup or "{sytle: 'scratch3'}").strip
+      @options = (markup or '').strip
+      if '' == @options then
+        @options = %Q{{style: "scratch3"}}
+      end
     end
 
     def render(context)
-      id = Digest::MD5.hexdigest(super)
-      %Q{<div id="#{ id }" class="scratchblocks">#{ super }</div><script>scratchblocks.renderMatching("\##{ id }", #{ options });</script>}
+      id = SecureRandom.uuid
+      %Q{<div class="scratchblocks id-#{ id }" id="#{ id }">#{ super }</div><script>scratchblocks.renderMatching(".id-#{ id }", #{ @options });</script>}
     end
   end
 end

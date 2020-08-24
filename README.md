@@ -39,17 +39,19 @@ head_scripts:
 
 ```html
 {% scratchblocks %}
-  @greenFlag が押されたとき
-  x座標を (0) 、y座標を (0) にする
-  ずっと
-    (10)回繰り返す
-      @turnright (10) 度回す
-      (5) 歩動かす
-    end
-    次のコスチュームにする
+when green flag clicked
+forever
+  turn cw (15) degrees
+  say [Hello!] for (2) seconds
+  if <mouse down?> then
+    change [mouse clicks v] by (1)
   end
+end
 {% endscratchblocks %}
 ```
+
+[scratchblocks translator](http://scratchblocks.github.io/translator/#?lang=ja_Hira&script=when%20green%20flag%20clicked%0Aforever%0A%20%20%20%20turn%20cw%20(15)%20degrees%0A%20%20%20%20say%20%5BHello!%5D%20for%20(2)%20seconds%0A%20%20%20%20if%20%3Cmouse%20down%3F%3E%20then%0A%20%20%20%20%20%20%20%20change%20%5Bmouse%20clicks%20v%5D%20by%20(1)%0A%20%20%20%20end%0Aend)
+
 
 ## Contributing
 
